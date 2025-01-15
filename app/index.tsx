@@ -1,28 +1,30 @@
-import { View, StyleSheet, SafeAreaView } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import Home from './(tabs)/dashboard';
 import LoginPage from './loginPage';
 
-import { useRouter } from 'expo-router';
-
 export default function Index() {
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+  const [user, setUser] = useState<User | null>(null);  // Tipando o estado corretamente
   const router = useRouter();
 
   useEffect(() => {
-    auth().onAuthStateChanged(_user => {
-      setUser(_user);
-      if (_user) {
-        router.replace('/(tabs)/dashboard'); // Vai para o layout das tabs
+    const auth = getAuth();
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser); // Atualiza o estado com o usuário logado
+        router.replace('/(tabs)/dashboard');
       } else {
-        router.replace('/loginPage'); // Vai para o login
+        setUser(null); // Desloga e limpa o estado
       }
     });
-    
-  }, []);
-  
+
+    // Limpa o listener ao desmontar o componente
+    return () => unsubscribe();
+  }, [router]);
 
   return (
     <SafeAreaView style={styles.container}>

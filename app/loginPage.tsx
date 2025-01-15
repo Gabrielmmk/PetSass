@@ -2,25 +2,20 @@ import React, { useState } from 'react';
 import { Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 
 // Bibliotecas de terceiros
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts, Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
-import { red } from 'react-native-reanimated/lib/typescript/reanimated2/Colors';
+import { useRouter } from 'expo-router';
 
-// Configuração do Google Sign-In
-GoogleSignin.configure({
-  webClientId: 'your-web-client-id.apps.googleusercontent.com',
-});
-
-// Configura o Google Sign-In com o webClientId correto
-GoogleSignin.configure({
-  webClientId: '788684104556-od7eh1erk7n1usb8gfm5r432dpakj6m9.apps.googleusercontent.com',
-});
+import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import '../firebase/index'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const auth = getAuth();
+
 
   // Configurando a fonte com o useFonts
   const [fontsLoaded] = useFonts({
@@ -42,23 +37,21 @@ export default function LoginPage() {
       console.log("Os campos estão vazios");
       return;
     }
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        console.log('Usuário logado com e-mail e senha:', userCredential);
-      })
-      .catch(error => {
-        if (error.code === 'auth/invalid-email') {
-          console.error('Endereço de e-mail inválido!');
-        } else if (error.code === 'auth/user-not-found') {
-          console.error('Usuário não encontrado!');
-        } else if (error.code === 'auth/wrong-password') {
-          console.error('Senha incorreta!');
-        } else {
-          console.error('Erro ao fazer login:', error);
-        }
-      });
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      //console.log("usuariologado", user.uid)
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
   };
+
+  const telaCadastro = () => {
+    router.push('/createAccount')
+  }
+
 
   return (
     <View style={styles.container}>
@@ -68,7 +61,7 @@ export default function LoginPage() {
       </View>
 
       <View style={styles.containerLogin}>
-        <Text style={[styles.text]}>Tela de Login</Text>
+        <Text style={[styles.text]}>Seja Bem-vindo(a)!</Text>
 
         <TextInput
           placeholder="E-mail"
@@ -98,7 +91,7 @@ export default function LoginPage() {
         </View>
 
         <View style={styles.socialContainer}>
-          <TouchableOpacity >
+          <TouchableOpacity>
             <Ionicons name="logo-google" size={45} color="#45484A" />
           </TouchableOpacity>
           <TouchableOpacity >
@@ -112,7 +105,7 @@ export default function LoginPage() {
         <View style={styles.criarContaText}>
           <Text style={{ color: '#45484A', fontFamily: 'Nunito_400Regular', }}>
             Não tem conta?{' '}
-            <Text style={{ color: '#50b9e0', textDecorationLine: 'underline', fontFamily: 'Nunito_700Bold' }} onPress={() => console.log('Criar conta')}>
+            <Text style={{ color: '#50b9e0', textDecorationLine: 'underline', fontFamily: 'Nunito_700Bold' }} onPress={() => telaCadastro()}>
               Crie uma
             </Text>
           </Text>
@@ -135,13 +128,14 @@ const styles = StyleSheet.create({
 
   containerLogin: {
     flex: 3,
-    alignItems : 'center',
-    justifyContent : 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   text: {
     color: '#45484A',
     fontSize: 24,
-    fontFamily: 'Nunito_700Bold'
+    fontFamily: 'Nunito_700Bold',
+    marginBottom: 15
   },
   input: {
     width: '100%',
@@ -189,7 +183,7 @@ const styles = StyleSheet.create({
     height: 350,
     width: 350,
     //borderColor: 'red',
-   // borderWidth: 2,
+    // borderWidth: 2,
   }
 
 });
