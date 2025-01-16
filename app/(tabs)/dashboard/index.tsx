@@ -11,17 +11,13 @@ export default function Home() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       setUid(user.uid)
-      //console.log("Nome: ", user.displayName)
-      //console.log("email: ", user.email)
-      //console.log("photoUrl: ", user.photoURL)
-      //console.log("Email: ", user.emailVerified)
-      console.log("Email: ", user.uid)
     } else {
-      console.log("não há usuario")
+      //console.log("não há usuario")
     }
   })
 
   const adicionarDados = () => {
+    
   };
 
   // Função para adicionar dados ao Firestore

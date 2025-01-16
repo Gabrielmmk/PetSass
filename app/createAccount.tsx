@@ -8,11 +8,22 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 export default function createAccount() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setconfirmPassword] = useState('');
+  const [name, setName] = useState('')
   const router = useRouter(); // Instância do router
 
   const handleRegister = () => {
     // Adicione a lógica de cadastro aqui
     const auth = getAuth();
+    if (!email || !password || !name) {
+      console.log('Os campos estão vazios');
+      return;
+    }
+
+    if (password !== confirmPassword){
+      console.log('as senhas não são iguais')
+      return
+    }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up 
@@ -39,6 +50,12 @@ export default function createAccount() {
 
       <Text style={styles.title}>Crie sua conta</Text>
       <TextInput
+        placeholder="Nome Completo"
+        style={styles.input}
+        value={name}
+        onChangeText={setName}
+      />
+      <TextInput
         placeholder="E-mail"
         style={styles.input}
         value={email}
@@ -51,6 +68,14 @@ export default function createAccount() {
         onChangeText={setPassword}
         secureTextEntry
       />
+      <TextInput
+        placeholder="Confirmar senha"
+        style={styles.input}
+        value={confirmPassword}
+        onChangeText={setconfirmPassword}
+        secureTextEntry
+      />
+
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Cadastrar</Text>
       </TouchableOpacity>

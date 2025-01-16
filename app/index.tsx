@@ -5,6 +5,7 @@ import { useRouter } from 'expo-router';
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import Home from './(tabs)/dashboard';
 import LoginPage from './loginPage';
+import Profile from './(tabs)/dashboard/profile';
 
 export default function Index() {
   const [user, setUser] = useState<User | null>(null);  // Tipando o estado corretamente
@@ -16,7 +17,7 @@ export default function Index() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser); // Atualiza o estado com o usuário logado
-        router.replace('/(tabs)/dashboard');
+        router.replace('/(tabs)/dashboard/profile');
       } else {
         setUser(null); // Desloga e limpa o estado
       }
@@ -28,7 +29,7 @@ export default function Index() {
 
   return (
     <SafeAreaView style={styles.container}>
-      {user ? <Home /> : <LoginPage />}
+      {user ? <Profile /> : <LoginPage />}
     </SafeAreaView>
   );
 }

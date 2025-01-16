@@ -24,10 +24,20 @@ export default function Layout() {
     <Tabs.Screen 
       name="settings" 
       options={{
-        title: 'Settings',
+        title: 'settings',
         headerShown: false, // Remove o header desta aba
         tabBarIcon : ({focused, color, size}) => (
           <Ionicons name={focused ? "settings" : "settings-outline"} size={size} color={color} />
+        ),
+      }} 
+    />
+    <Tabs.Screen 
+      name="profile" 
+      options={{
+        title: 'Profile',
+        headerShown: false, // Remove o header desta aba
+        tabBarIcon : ({focused, color, size}) => (
+          <Ionicons name={focused ? "person" : "person-outline"} size={size} color={color} />
         ),
       }} 
     />
