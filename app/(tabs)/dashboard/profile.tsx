@@ -12,17 +12,22 @@ export default function profile() {
         Nunito_700Bold,
     });
 
-      const logOut = async () => {
+    {/*Função de LogOut */}
+    const logOut = async () => {
         const auth = getAuth();
         try {
-          await signOut(auth);
-          console.log('Usuário deslogado');
-          router.push('/'); // Redireciona para a página inicial
+            await signOut(auth);
+            console.log('Usuário deslogado');
+            router.push('/'); // Redireciona para a página inicial
         } catch (error) {
-          console.error('Erro ao deslogar:', error);
-          Alert.alert('Erro', 'Não foi possível deslogar. Tente novamente.');
+            console.error('Erro ao deslogar:', error);
+            Alert.alert('Erro', 'Não foi possível deslogar. Tente novamente.');
         }
-      };
+    };
+
+    const infoAccount = async () => {
+        router.push('/(tabs)/profile/infoAccount')
+    }
 
     // Exibir indicador de carregamento até que a fonte seja carregada
     if (!fontsLoaded) {
@@ -36,25 +41,25 @@ export default function profile() {
         <SafeAreaView style={styles.container}>
             {/*Header*/}
             <View style={styles.containerHeader}>
-                <Image source={require('../../../assets/images/turtle.jpg')} style={styles.imageHeader}/>
+                <Image source={require('../../../assets/images/turtle.jpg')} style={styles.imageHeader} />
                 <Text style={styles.textHeader}>Gabriel Medeiros</Text>
             </View>
 
             {/*Content*/}
             <View style={styles.containerContent}>
-                <TouchableOpacity style= {styles.buttonContent}>
+                <TouchableOpacity style={styles.buttonContent} onPress={infoAccount}>
                     <Ionicons name="person-outline" size={20} color={colors.primary} />
                     <Text style={styles.textContent}>Informações da conta</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style= {styles.buttonContent}>
+                <TouchableOpacity style={styles.buttonContent}>
                     <Ionicons name="settings-outline" size={20} color={colors.primary} />
                     <Text style={styles.textContent}>Configurações da conta</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style= {styles.buttonContent}>
+                <TouchableOpacity style={styles.buttonContent}>
                     <Ionicons name="calendar-outline" size={20} color={colors.primary} />
                     <Text style={styles.textContent}>Lembretes</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style= {styles.buttonContent} onPress={logOut}>
+                <TouchableOpacity style={styles.buttonContent} onPress={logOut}>
                     <Ionicons name="log-out-outline" size={20} color={colors.primary} />
                     <Text style={styles.textContent}>Sair</Text>
                 </TouchableOpacity>
@@ -73,17 +78,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    imageHeader : {
-        width : 80,
-        height : 80,
-        borderRadius : 50,
+    imageHeader: {
+        width: 80,
+        height: 80,
+        borderRadius: 50,
         borderWidth: 1,
     },
-    textHeader : {
-        fontFamily : 'Nunito_700Bold',
-        fontSize : 20,
-        marginTop : 15,
-        color : colors.white
+    textHeader: {
+        fontFamily: 'Nunito_700Bold',
+        fontSize: 20,
+        marginTop: 15,
+        color: colors.white
     },
     containerContent: {
         flex: 2,
@@ -92,17 +97,17 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: colors.white,
     },
-    buttonContent : {
-        borderBottomWidth : 1,
-        borderColor : colors.bluePrincipal,
-        flexDirection : 'row',
-        justifyContent : 'flex-start',
-        alignItems : 'center',
-        height : 60
+    buttonContent: {
+        borderBottomWidth: 1,
+        borderColor: colors.bluePrincipal,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        height: 60
     },
-    textContent : {
-        marginLeft : 10,
-        fontFamily : 'Nunito_400Regular',
-        
+    textContent: {
+        marginLeft: 10,
+        fontFamily: 'Nunito_400Regular',
+
     }
 })

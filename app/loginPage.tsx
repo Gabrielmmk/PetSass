@@ -20,13 +20,22 @@ import { useRouter } from 'expo-router';
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 import '../firebase/index';
 import { colors } from '@/assets/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+AsyncStorage
+
+AsyncStorage
+
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
-
   const auth = getAuth();
+  const userData = { email, password }
+
+  const [inputError, setInputError] = useState({ email: false, password: false })
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Configurando a fonte com o useFonts
   const [fontsLoaded] = useFonts({
@@ -45,20 +54,37 @@ export default function LoginPage() {
 
   const handleEmailSignIn = () => {
     if (!email || !password) {
-      console.log('Os campos estão vazios');
+      setErrorMessage('Preencha todos os campos para efetuar o login')
       return;
     }
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log('Usuário logado:', user.uid);
+        loadData()
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error(errorCode, errorMessage);
+        setErrorMessage('Email e/ou senha incorretos')
+        setInputError(
+          {
+            email: true,
+            password: true
+          }
+        )
       });
   };
+
+  const loadData = async () => {
+    try {
+      const jsonValue = JSON.stringify(userData)
+      await AsyncStorage.setItem('userData', jsonValue)
+      console.log("FOI")
+      console.log(jsonValue)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const telaCadastro = () => {
     router.push('/createAccount');
@@ -80,7 +106,7 @@ export default function LoginPage() {
           <TextInput
             placeholder="E-mail"
             placeholderTextColor="#AEB5BB"
-            style={styles.input}
+            style={[styles.input, inputError.email && styles.inputError]}
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -90,11 +116,12 @@ export default function LoginPage() {
           <TextInput
             placeholder="Senha"
             placeholderTextColor="#AEB5BB"
-            style={styles.input}
+            style={[styles.input, inputError.password && styles.inputError]}
             value={password}
             onChangeText={setPassword}
             secureTextEntry
           />
+           {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
 
           <View style={styles.touchAble}>
             <TouchableOpacity onPress={handleEmailSignIn}>
@@ -163,6 +190,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito_700Bold',
     marginBottom: 15,
   },
+  errorText : {
+    color : 'red'
+  },
   input: {
     width: '90%',
     height: 50,
@@ -172,6 +202,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderWidth: 1,
     borderColor: colors.secondary,
+  },
+  inputError : {
+    borderColor : 'red',
   },
   touchAble: {
     marginTop: 10,

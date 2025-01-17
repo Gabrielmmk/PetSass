@@ -4,13 +4,19 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { colors } from '@/assets/colors';
+
 
 export default function createAccount() {
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
-  const [name, setName] = useState('')
   const router = useRouter(); // Instância do router
+  const db = getFirestore();
+
+
 
   const handleRegister = () => {
     // Adicione a lógica de cadastro aqui
@@ -20,23 +26,43 @@ export default function createAccount() {
       return;
     }
 
-    if (password !== confirmPassword){
+    if (password !== confirmPassword) {
       console.log('as senhas não são iguais')
       return
     }
+
+
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
         console.log(user)
-        // ...
+        otherInformations(user.uid)
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.log("Error code: ", error.code);
+        console.log("Error message: ", error.message);
         // ..
       });
   };
+
+
+  //Envia as informações para o firebase
+  const otherInformations = async (uid: string) => {
+    if (!uid) {
+      console.log("UID Vazio")
+      return
+    }
+    try {
+      await setDoc(doc(db, "users", uid), {
+        name: { name },
+        email: { email },
+        born: 1825
+      });
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  }
 
 
 
@@ -44,7 +70,7 @@ export default function createAccount() {
     <View style={styles.container}>
       {/* Botão de voltar */}
       <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-        <Ionicons name="arrow-back" size={24} color="#45484A" />
+        <Ionicons name="arrow-back" size={24} color={colors.primary} />
         <Text style={styles.backText}></Text>
       </TouchableOpacity>
 
@@ -60,6 +86,12 @@ export default function createAccount() {
         style={styles.input}
         value={email}
         onChangeText={setEmail}
+        inputMode='email'
+      />
+      <TextInput
+        placeholder="Idade"
+        style={styles.input}
+        inputMode='numeric'
       />
       <TextInput
         placeholder="Senha"
@@ -75,6 +107,8 @@ export default function createAccount() {
         onChangeText={setconfirmPassword}
         secureTextEntry
       />
+
+
 
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Cadastrar</Text>
@@ -93,6 +127,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
+    marginTop: 15
   },
   backText: {
     marginLeft: 5,
@@ -104,17 +139,18 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#45484A',
+    color: colors.primary,
     fontFamily: 'Nunito_700Bold',
   },
   input: {
     width: '100%',
     height: 50,
-    borderColor: '#AEB5BB',
+    borderColor: colors.secondary,
     borderWidth: 1,
     borderRadius: 25,
     paddingHorizontal: 15,
     marginBottom: 15,
+    color : colors.primary,
   },
   button: {
     backgroundColor: '#50b9e0',

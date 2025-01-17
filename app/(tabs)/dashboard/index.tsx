@@ -4,6 +4,8 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { db } from '@/firebase';
 
+
+
 export default function Home() {
   const [uid, setUid] = useState(String);
   const auth = getAuth();
@@ -32,8 +34,6 @@ export default function Home() {
         last: "Lovelace",
         born: 1825
       });
-
-      console.log("FOi");
     } catch (e) {
       console.error("Error adding document: ", e);
     }

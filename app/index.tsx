@@ -17,7 +17,7 @@ export default function Index() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser); // Atualiza o estado com o usuário logado
-        router.replace('/(tabs)/dashboard/profile');
+        router.replace('/(tabs)/dashboard/');
       } else {
         setUser(null); // Desloga e limpa o estado
       }
