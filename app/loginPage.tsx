@@ -19,6 +19,7 @@ import { useRouter } from 'expo-router';
 
 import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
 import '../firebase/index';
+import { colors } from '@/assets/colors';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -141,7 +142,7 @@ export default function LoginPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
   scrollContent: {
     flexGrow: 0,
@@ -165,16 +166,16 @@ const styles = StyleSheet.create({
   input: {
     width: '90%',
     height: 50,
-    color: '#45484A',
+    color: colors.primary,
     paddingHorizontal: 10,
     borderRadius: 25,
     marginVertical: 10,
     borderWidth: 1,
-    borderColor: '#AEB5BB',
+    borderColor: colors.secondary,
   },
   touchAble: {
     marginTop: 10,
-    backgroundColor: '#50b9e0',
+    backgroundColor: colors.bluePrincipal,
     borderRadius: 25,
     overflow: 'hidden',
     width: '90%',
@@ -185,13 +186,13 @@ const styles = StyleSheet.create({
   textTouch: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#fff',
+    color: colors.white,
     fontFamily: 'Nunito_700Bold',
   },
   textSocial: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#45484A',
+    color: colors.primary,
     marginTop: 20,
     fontFamily: 'Nunito_700Bold',
   },
