@@ -42,7 +42,7 @@ export default function profile() {
             {/*Header*/}
             <View style={styles.containerHeader}>
                 <Image source={require('../../../assets/images/turtle.jpg')} style={styles.imageHeader} />
-                <Text style={styles.textHeader}>Gabriel Medeiros</Text>
+                <Text style={styles.textHeader}>Garcia Rodrigues</Text>
             </View>
 
             {/*Content*/}

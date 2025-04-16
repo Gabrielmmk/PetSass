@@ -1,11 +1,12 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "@/assets/colors";
 
 export default function Layout() {
   return (
     <Tabs screenOptions={{
       headerStyle: {
-        backgroundColor: '#25292e', // Cor de fundo da navbar
+        backgroundColor: colors.bluePrincipal, // Cor de fundo da navbar
         borderTopLeftRadius : 20,
         borderTopRightRadius : 20
       }
@@ -16,7 +17,7 @@ export default function Layout() {
         title: 'Home', 
         headerShown: false, // Remove o header desta aba
         tabBarIcon: ({ focused, color, size }) => (
-          <Ionicons name={focused ? "home" : "home-outline"} size={size} color={color} />
+          <Ionicons name={focused ? "home" : "home-outline"} size={size} color={colors.bluePrincipal} />
         ),
       }} 
     />
@@ -24,10 +25,10 @@ export default function Layout() {
     <Tabs.Screen 
       name="settings" 
       options={{
-        title: 'settings',
+        title: 'Pets',
         headerShown: false, // Remove o header desta aba
         tabBarIcon : ({focused, color, size}) => (
-          <Ionicons name={focused ? "settings" : "settings-outline"} size={size} color={color} />
+          <Ionicons name={focused ? "add-circle" : "add-circle-outline"} size={size} color={colors.bluePrincipal} />
         ),
       }} 
     />
@@ -37,7 +38,7 @@ export default function Layout() {
         title: 'Profile',
         headerShown: false, // Remove o header desta aba
         tabBarIcon : ({focused, color, size}) => (
-          <Ionicons name={focused ? "person" : "person-outline"} size={size} color={color} />
+          <Ionicons name={focused ? "person" : "person-outline"} size={size} color={colors.bluePrincipal} />
         ),
       }} 
     />

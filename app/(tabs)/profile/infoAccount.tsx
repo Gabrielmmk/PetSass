@@ -14,6 +14,7 @@ export default function InfoAccount() {
     const [uidUser, setUidUser] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [age, setAge] = useState('');
     const [isEditable, setIsEditable] = useState(false)
 
     const db = getFirestore();
@@ -26,8 +27,7 @@ export default function InfoAccount() {
             if (user) {
                 const uid = user.uid;
                 setUidUser(uid);
-                getUserData(uid);
-                loadData()
+                getUserData(user.uid)
 
             }
         });
@@ -36,33 +36,25 @@ export default function InfoAccount() {
         return () => unsubscribe();
     }, []);
 
-    const getUserData = async (uid: string) => {
-        try {
-            const userDoc = await getDoc(doc(db, "users", uid));
-            if (userDoc.exists()) {
-                const userData = userDoc.data();
-                setName(userData.name.name); // Define o nome no estado
-                //console.log(userData)
-                //console.log(userData.email.email)
-            } else {
-                console.log("Usuário não encontrado!");
-            }
-        } catch (error) {
-            console.error("Erro ao recuperar dados do usuário:");
+
+
+
+    const getUserData = async(uid : string) => {
+        if(!uid){
+          console.log("NUMERO NÂO EXISTE")
         }
-    };
-
-
-
-    const loadData = async () => {
-        const data = await AsyncStorage.getItem('userData');
-            if (data) {
-                const userData = JSON.parse(data)
-                setEmail(userData.email)
-                //console.log("Email: ", userData.email)
-                //console.log("userData: ", userData);
-            }
-    }
+        const userDoc = await getDoc(doc(db, "users", uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setName(userData.name.name)
+          setEmail(userData.email.email)
+          setAge(userData.age.age)
+          console.log(name)
+        } else {
+          // docSnap.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }
 
 
 
@@ -70,6 +62,7 @@ export default function InfoAccount() {
     const teste = () => {
         setIsEditable((prevState) => !prevState); // Alterna entre true e false
         console.log('O botão agora é: ', isEditable)
+        console.log(name)
     }
 
     return (
@@ -86,6 +79,11 @@ export default function InfoAccount() {
                 />
                 <TextInput
                     value={email} // Exibe o nome diretamente
+                    style={styles.input}
+                    editable={false}
+                />
+                <TextInput
+                    value={age} // Exibe o nome diretamente
                     style={styles.input}
                     editable={false}
                 />

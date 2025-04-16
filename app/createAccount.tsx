@@ -11,6 +11,7 @@ import { colors } from '@/assets/colors';
 export default function createAccount() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('');
+  const [age, setAge] = useState('')
   const [password, setPassword] = useState('');
   const [confirmPassword, setconfirmPassword] = useState('');
   const router = useRouter(); // Instância do router
@@ -57,7 +58,7 @@ export default function createAccount() {
       await setDoc(doc(db, "users", uid), {
         name: { name },
         email: { email },
-        born: 1825
+        age : {age}
       });
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -92,6 +93,7 @@ export default function createAccount() {
         placeholder="Idade"
         style={styles.input}
         inputMode='numeric'
+        onChangeText={setAge}
       />
       <TextInput
         placeholder="Senha"

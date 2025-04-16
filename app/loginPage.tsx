@@ -60,7 +60,7 @@ export default function LoginPage() {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log('Usuário logado:', user.uid);
+        //console.log('Usuário logado:', user.uid);
         loadData()
       })
       .catch((error) => {
@@ -78,9 +78,6 @@ export default function LoginPage() {
     try {
       const jsonValue = JSON.stringify(userData)
       await AsyncStorage.setItem('userData', jsonValue)
-      console.log("FOI")
-      console.log(jsonValue)
-
     } catch (error) {
       console.log(error)
     }
