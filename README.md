@@ -1,50 +1,78 @@
-# Welcome to your Expo app 👋
+# 🐾 Pet Care Pulse
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Pet Care Pulse** é um aplicativo mobile e plataforma web que ajuda tutores a organizarem os cuidados com seus pets, incluindo lembretes de vacinas, remédios, consultas e muito mais. Também oferece um portal exclusivo para pet shops e clínicas veterinárias gerenciarem serviços e interagirem com os tutores.
 
-## Get started
+---
 
-1. Install dependencies
+## 🚀 Tecnologias Utilizadas
 
-   ```bash
-   npm install
-   ```
+### Mobile (App)
+- React Native (com Expo)
+- Firebase Authentication
+- Firestore Database
+- Push Notifications (Expo Notifications)
 
-2. Start the app
+### Web (Portal Profissional)
+- Next.js (ou outra stack moderna de sua escolha)
+- Firebase Admin SDK
+- Firebase Hosting (ou Vercel/Netlify)
+- Tailwind CSS
 
-   ```bash
-    npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## ✨ Funcionalidades do App
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- 📅 Lembretes de vacinas e remédios
+- 📋 Perfil completo do pet
+- 🔔 Notificações push
+- 📈 Histórico de saúde
+- 👤 Cadastro e login com e-mail
+- 💬 Futuro: Comunidade de tutores e integração com profissionais
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🧪 Funcionalidades do Portal Web (Profissionais)
 
-When you're ready, run:
+- 🏥 Cadastro de pet shops e clínicas veterinárias
+- 📆 Sistema de agendamento de consultas
+- 📊 Painel de gerenciamento de clientes
+- 📁 Acesso (com permissão) ao histórico de saúde do pet
+- 🚀 Plano premium para destaque e analytics
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🧠 Visão do Projeto
 
-## Learn more
+### MVP:
+- Lembretes de vacinas e remédios
+- Cadastro de pet
+- Login de usuário
+- Notificações push
+- Cadastro básico de pet shops via painel web
 
-To learn more about developing your project with Expo, look at the following resources:
+### Futuro:
+- Integração com marketplace pet
+- Comunidade para tutores
+- Relatórios de saúde personalizados
+- Integração com wearables para pets
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+---
 
-## Join the community
+## 👥 Contribuindo
 
-Join our community of developers creating universal apps.
+Este é um projeto colaborativo para aprendizado e crescimento de desenvolvedores iniciantes.  
+Se você tem interesse em contribuir, sinta-se à vontade para abrir uma issue ou enviar um pull request!
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+---
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+---
+
+## 📬 Contato
+
+Quer participar ou tem alguma dúvida?  
+Entre em contato comigo pelo [LinkedIn](https://www.linkedin.com/in/gabriel-medeiros-7b2921232/) ou envie um e-mail para: **gabrielmmk087@gmail.com**
+
