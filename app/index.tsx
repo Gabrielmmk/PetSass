@@ -17,7 +17,9 @@ export default function Index() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser); // Atualiza o estado com o usuário logado
-        router.replace('/(tabs)/dashboard/');
+        //router.replace('/(tabs)/dashboard/');
+        router.replace('/(tabs)/petInfo/petInfo');//Mudar depois
+
       } else {
         setUser(null); // Desloga e limpa o estado
       }

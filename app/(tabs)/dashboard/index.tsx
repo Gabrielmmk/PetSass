@@ -7,6 +7,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@/assets/colors';
 import { useFonts, Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+
 
 type Pet = {
   id: string;
@@ -22,6 +24,9 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [pet, setPet] = useState<Pet[]>([]); // Definindo o tipo explicitamente
   const auth = getAuth();
+
+  const router = useRouter();
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -80,8 +85,11 @@ export default function Home() {
         <ActivityIndicator size="large" color={colors.white} />
       </SafeAreaView>
     );
-  }
+  };
 
+  const infoPet = async () => {
+    router.push('/(tabs)/petInfo/petInfo')
+  };
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.containerName}>
@@ -114,13 +122,16 @@ export default function Home() {
       <View style={styles.containerSection2}>
         <View style={styles.textHeaderSection2}>
           <Text style={{ fontFamily: 'Nunito_700Bold', fontSize: 20, color: colors.primary }}>Seus Pets</Text>
+          <TouchableOpacity >
+            <Ionicons name="add-sharp" size={30} color={colors.bluePrincipal} />
+          </TouchableOpacity>
         </View>
         <View style={styles.containerPets}>
           <ScrollView style={{ flex: 1 }}>
             {/* Exibindo os pets reais */}
             {pet.length > 0 ? (
               pet.map((item) => (
-                <TouchableOpacity key={item.id} style={styles.petBox}>
+                <TouchableOpacity key={item.id} style={styles.petBox} onPress={infoPet}>
                   <View style={styles.petImage}>
                     <Image
                       source={require('../../../assets/images/bird.jpg')} // Imagem de exemplo
@@ -253,6 +264,8 @@ const styles = StyleSheet.create({
   textHeaderSection2: {
     padding: 20,
     fontFamily: 'Nunito_700Bold',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 
   petsSection2: {

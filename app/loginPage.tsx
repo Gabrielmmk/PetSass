@@ -24,7 +24,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 AsyncStorage
 
-AsyncStorage
 
 
 export default function LoginPage() {
